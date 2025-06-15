@@ -92,10 +92,11 @@ sns.heatmap(
     mask=~mask_significant,
     cbar_kws={'label': 'Pearson Correlation'}
 )
-plt.title('Significant Pearson Correlations (p < 0.05)')
+#plt.title('Significant Pearson Correlations (p < 0.05)')
 plt.tight_layout()
 
 # Instead of plt.show(), use:
+st.subheader("Significant Pearson Correlations (p < 0.05)", divider="blue")
 st.pyplot(plt.gcf())
 
 
@@ -350,6 +351,20 @@ mcc_dict["Model Type"].append("Artificial Neural Network")
 mcc_dict["MCC Score"].append(avg_evaluation_metrics(ann_mcc_arr))
 
 
+st.subheader("MCC Values for Model Comparison", divider="blue")
+
+mcc_df = pd.DataFrame(mcc_dict)
+mcc_df = mcc_df.sort_values("MCC Score", ascending=False)
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(data=mcc_df, x="MCC Score", y="Model Type", ax=ax, palette="viridis")
+ax.set_title("Average MCC Score by Model Type")
+ax.set_xlabel("MCC Score")
+ax.set_ylabel("Model Type")
+
+# Step 4: Display in Streamlit
+st.pyplot(fig)
+
+
 explainer = shap.Explainer(grid_search.predict, X_test)
 shap_values = explainer(X_test)
 
@@ -357,6 +372,7 @@ shap_values = explainer(X_test)
 plt.figure()  # Start a new figure
 shap.plots.beeswarm(shap_values, show=False)  # Tell SHAP not to show it immediately
 
+st.subheader("SHAP Values of Artificial Neural Network (ANN)", divider="blue")
 # Then pass the current figure to Streamlit
 st.pyplot(plt.gcf())  # gcf = Get Current Figure
 
