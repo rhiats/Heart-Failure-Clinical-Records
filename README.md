@@ -6,3 +6,6 @@ Chicco, D., & Jurman, G. (2020). Machine learning can predict survival of patien
 
 Dataset:
 Heart Failure Clinical Records [Dataset]. (2020). UCI Machine Learning Repository. https://doi.org/10.24432/C5Z89R.
+
+Dashboard:
+https://rhiats-heart-failure-clinical-records-app-b68m3z.streamlit.app/
